@@ -1,46 +1,224 @@
-# Getting Started with Create React App
+# Тестовое задание от компании All Funeral Services для JS разработчика
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Необходимо сверстать и "оживить" интерфейс, макет которого расположен тут: https://www.figma.com/file/Ti2cpYwuWA5D0WulQAM92x/Test-assignment?node-id=0%3A1
 
-## Available Scripts
+В процессе выполнения тестового задания нужно использовать тестовый API, описание работы с которым см. ниже.
 
-In the project directory, you can run:
+## Требования
+- Интерфейс должен быть сверстан в полном соответствии макету
+- Внешний вид интерфейса при редактировании должен оформляться с учетом предложенного дизайна компонентов UI
+- Там, где верстка не предусмотрена дизайном макета, нужно принять самостоятельное решение по внешнему виду элементов
+- Для реализации интерфейса необходимо использовать ReactJS
+- Интерфейс должен уметь:
+  - отображать данные, полученные из API
+  - отправлять к API запрос на редактирование данных карточки
+  - отображать обновленные данные после успешного редактирования
+  - загружать/удалять приложенные картинки
+  - отправлять запрос на удаление карточки
+- Результат выполнения задания должен быть выложен в любой открытый репозиторий
 
-### `npm start`
+## API
+### Особенности
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+API возвращает информацию по одной организации ```GET /companies/12``` и одному контакту организации ```GET /contacts/16```.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+API не выполняет реальных действий сохранения данных.
 
-### `npm test`
+API временно сохраняет загруженные изображения.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Адрес
+http://135.181.35.61:2112/
 
-### `npm run build`
+### Доступ
+Работа с API возможна после получения авторизационного токена
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Методы API
+- ```GET /auth```
+- ```GET /companies/ID```
+- ```PATCH /companies/ID```
+- ```DELETE /companies/ID```
+- ```POST /companies/ID/image```
+- ```DELETE /companies/ID/image/IMAGE_NAME```
+- ```GET /contacts/ID```
+- ```PATCH /contacts/ID```
+  
+### Авторизация
+```GET /auth```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Параметры запроса
+```
+user=USERNAME
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ответ:
+```
+HTTP 200 OK
+Authorization: Bearer _token_
+```
 
-### `npm run eject`
+Пример:
+```
+$ curl -v -X GET http://135.181.35.61:2112/auth?user=USERNAME
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Получениие инфо об организации
+```GET /companies/ID```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Ответ:
+```
+HTTP 200 OK
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+{
+   "id":"12",
+   "contactId": "16",
+   "name":"ООО Фирма «Перспективные захоронения»",
+   "shortName":"Перспективные захоронения",
+   "businessEntity":"ООО",
+   "contract": {
+      "no":"12345",
+      "issue_date":"2015-03-12T00:00:00Z"
+   },
+   "type": [
+      "agent",
+      "contractor"
+   ],
+   "status":"active",
+   "photos": [
+      {
+         "name":"0b8fc462dcabf7610a91.jpg",
+         "filepath":"http://135.181.35.61:2112/0b8fc462dcabf7610a91.jpg",
+         "thumbpath":"http://135.181.35.61:2112/0b8fc462dcabf7610a91_160x160.jpg"
+      }
+   ],
+   "createdAt":"2020-11-21T08:03:00Z",
+   "updatedAt":"2020-11-23T09:30:00Z"
+}
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Пример:
+```
+$ curl -X GET http://135.181.35.61:2112/companies/12  -H "Content-Type: application/json"  -H "Authorization: Bearer _token_"
+```
 
-## Learn More
+### Обновление данных организации
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```PATCH /companies/ID```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Параметры запроса
+```
+Content-Type: application/json
+Authorization: Bearer _token_
+
+{
+    "name": _UPDATED_NAME_STR_,
+    "shortName": _UPDATED_SHORTNAME_STR_,
+    "businessEntity": _UPDATED_BUSINESS_ENTITY_STR_,
+    "contract": {
+        no:  _UPDATED_CONTRACT_NO_STR_,
+        issue_date:  _UPDATED_CONTRACT_ISSUE_DATE_DATE_,
+    },
+    type: _UPDATED_TYPES_ARRAY_
+}
+
+```
+
+Пример:
+```
+$ curl -X PATCH http://135.181.35.61:2112/companies/12  -H "Content-Type: application/json"  -H "Authorization: Bearer _token_" -d '{"name":"ООО Фирма «Крайне Перспективные Захоронения»", "shortName":"КПЗ"}'
+```
+
+### Удаление организации
+
+```DELETE /companies/ID```
+
+Ответ:
+```
+HTTP 200 OK
+```
+
+### Добавление изображения
+```POST /companies/ID/image```
+
+Параметры запроса
+```
+Content-Type: multipart/form-data
+Authorization: Bearer _token_
+
+file=FILE
+```
+
+Ответ:
+```
+HTTP 200 OK
+
+{
+   "name":"24a7b93b9adc015fdb06.png",
+   "filepath":"http://135.181.35.61:2112/images/vera/24a7b93b9adc015fdb06.png",
+   "thumbpath":"http://135.181.35.61:2112/images/vera/24a7b93b9adc015fdb06_160x160.png"
+}
+```
+
+Пример:
+```
+curl -v -X POST http://135.181.35.61:2112/companies/12/image  -H "Content-Type: multipart/form-data"  -H "Authorization: Bearer _token_" -F "file=@/path/to/file.png"
+```
+
+### Удаление изображения
+
+```DELETE /companies/ID/image/IMAGE_NAME```
+
+Ответ:
+```
+HTTP 200 OK
+```
+Пример:
+```
+curl -v -X DELETE http://135.181.35.61:2112/companies/12/image/6387dd7ab672f0acedc9.jpg -H "Authorization: Bearer _token_"
+```
+
+### Получение контакта организации
+```GET /contacts/ID```
+
+Ответ:
+```
+HTTP 200 OK
+
+{
+   "id":"16",
+   "lastname":"Григорьев",
+   "firstname":"Сергей",
+   "patronymic":"Петрович",
+   "phone":"79162165588",
+   "email":"grigoriev@funeral.com",
+   "createdAt":"2020-11-21T08:03:26.589Z",
+   "updatedAt":"2020-11-23T09:30:00Z"
+}
+```
+
+Пример:
+```
+curl -v -X GET http://135.181.35.61:2112/contacts/16  -H "Content-Type: application/json"  -H "Authorization: Bearer _token_"
+```
+
+### Обновление контакта организации
+
+```PATCH /contacts/ID```
+
+Параметры запроса
+```
+Content-Type: application/json
+Authorization: Bearer _token_
+
+{
+   "lastname":"Григорьев",
+   "firstname":"Сергей",
+   "patronymic":"Петрович",
+   "phone":"79162165588",
+   "email":"grigoriev@funeral.com",
+}
+```
+
+Пример:
+```
+curl -v -X PATCH http://135.181.35.61:2112/contacts/16  -H "Content-Type: application/json"  -H "Authorization: Bearer _token" -d '{"phone":"79162165556"}'
+```
