@@ -1,0 +1,81 @@
+@import "../../sass/variables";
+
+.images-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 20px;
+
+    &__item {
+    }
+
+    &__fullscreen {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        user-select: none;
+        pointer-events: none;
+
+        &_show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &__view {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        flex: 0 0 auto;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: gray;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+    }
+    &__remove {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 20px;
+        height: 20px;
+        line-height: 0;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    &__name,
+    &__date {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    &__name {
+        color: #3b3b3b;
+    }
+    &__date {
+        color: #808080;
+    }
+}

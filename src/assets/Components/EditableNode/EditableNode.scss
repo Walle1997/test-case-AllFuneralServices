@@ -1,0 +1,30 @@
+@import "../../sass/_variables.scss";
+
+.editable-node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 1 450px;
+
+    .input-field {
+        flex: 0 1 400px;
+    }
+
+    .icon-button {
+        flex: 0 0 32px;
+
+        svg {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    &:not(.editable-node_changed) .icon-button svg {
+        opacity: 0.3;
+        fill: grey;
+    }
+
+    &_changed .icon-button svg {
+        opacity: 1;
+    }
+}

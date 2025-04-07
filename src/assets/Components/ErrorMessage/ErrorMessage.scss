@@ -1,0 +1,9 @@
+@import "../../sass/_variables.scss";
+
+.error-message {
+    padding: 20px;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    color: $red;
+}

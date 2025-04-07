@@ -1,0 +1,61 @@
+@import "../../sass/_variables.scss";
+
+.aside {
+    position: relative;
+    background: #f7f7f7;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 21px;
+        height: 100%;
+        z-index: 0;
+        background: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.072) 0%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: matrix(-1, 0, 0, 1, 0, 0);
+        pointer-events: none;
+    }
+
+    &__logo {
+        margin: 20px auto;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        height: 44px;
+        padding-left: 16px;
+        column-gap: 12px;
+        background: #eeeeee;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        color: $green-light;
+    }
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-transform: uppercase;
+    text-align: center;
+    color: #3b3b3b;
+
+    &__title {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: 0.03em;
+    }
+    &__subtitle {
+        font-size: 12px;
+        line-height: 160%;
+        letter-spacing: 0.2px;
+    }
+}

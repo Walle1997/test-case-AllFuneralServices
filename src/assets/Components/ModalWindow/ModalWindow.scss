@@ -1,0 +1,53 @@
+@import "../../sass/_variables.scss";
+
+.modal {
+    &__window {
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+        width: 320px;
+        max-width: 100%;
+        min-height: 198px;
+        padding: 24px;
+        background: #ffffff;
+        box-shadow: 0 5px 40px rgba(0, 0, 0, 0.15);
+        color: #3b3b3b;
+    }
+
+    &__header {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    &__content {
+        flex: 1;
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    &__button {
+        text-transform: uppercase;
+        cursor: pointer;
+        user-select: none;
+
+        &_cancel {
+            color: #b9b9b9;
+        }
+        &_accept {
+            color: $green-light;
+        }
+        &_ok {
+            margin: auto;
+        }
+    }
+}

@@ -1,0 +1,61 @@
+@import "../../sass/_variables.scss";
+
+.input-field {
+    position: relative;
+
+    &__input {
+        max-width: 400px;
+        width: 100%;
+        min-width: 0;
+        height: 40px;
+        border: 1px solid #cdcdcd;
+        border-radius: 2px;
+        padding: 10px 12px;
+        font: 400 14px/20px $font-family;
+        color: #3b3b3b;
+
+        &.input-field__select {
+            padding: 0;
+            height: auto;
+        }
+
+        &::placeholder {
+            display: block;
+            margin-top: -10px;
+            color: #808080;
+        }
+
+        &:hover {
+            border-color: #808080;
+        }
+        &:focus {
+            border-color: #3b3b3b;
+        }
+
+        &:not(:placeholder-shown) {
+            + .input-field__label {
+                top: 0;
+                opacity: 1;
+            }
+        }
+    }
+
+    &__label {
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        padding: 0 4px;
+        background: #ffffff;
+        color: #808080;
+        font-size: 10px;
+        line-height: 12px;
+        white-space: nowrap;
+        max-width: calc(100% - 8px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity: 0;
+        transform: translateY(-50%);
+        transition: 0.6s ease top;
+        pointer-events: none;
+    }
+}

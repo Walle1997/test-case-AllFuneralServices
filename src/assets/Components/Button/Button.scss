@@ -1,0 +1,64 @@
+@import "../../sass/_variables.scss";
+
+%block16x16 {
+    width: 16px;
+    height: 16px;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px 10px 12px;
+    gap: 12px;
+    max-width: 400px;
+    min-height: 40px;
+    flex: 0 1;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &__icon {
+        @extend %block16x16;
+    }
+
+    &__text {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 160%;
+        color: $green-light;
+        text-align: center;
+    }
+
+    &::after {
+        content: "";
+        @extend %block16x16;
+    }
+
+    &:hover {
+        $hover-color: #98c88c;
+
+        border-color: #cdcdcd;
+
+        .button__icon path {
+            fill: $hover-color;
+        }
+        .button__text {
+            color: $hover-color;
+        }
+    }
+
+    &:active {
+        $active-color: #58a742;
+
+        border-color: #cdcdcd;
+
+        .button__icon path {
+            fill: $active-color;
+        }
+        .button__text {
+            color: $active-color;
+        }
+    }
+}

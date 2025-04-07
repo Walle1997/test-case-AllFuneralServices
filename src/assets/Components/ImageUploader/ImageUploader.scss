@@ -1,0 +1,10 @@
+.image-uploader {
+    input[type="file"] {
+        display: none;
+    }
+
+    &__preview {
+        max-width: 100%;
+        object-fit: contain;
+    }
+}

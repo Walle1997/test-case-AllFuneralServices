@@ -1,0 +1,16 @@
+.section {
+    color: #3b3b3b;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #e5e5e5;
+
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 20px;
+        text-transform: uppercase;
+    }
+}
