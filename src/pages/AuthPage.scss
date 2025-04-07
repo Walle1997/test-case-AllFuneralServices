@@ -1,0 +1,14 @@
+.auth-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 360px;
+    max-width: 100%;
+    padding: 10px 20px;
+
+    &__info {
+        font-weight: 300;
+        font-size: 16px;
+        text-align: center;
+    }
+}
